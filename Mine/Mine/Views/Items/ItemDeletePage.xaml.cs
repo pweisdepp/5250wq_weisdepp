@@ -46,7 +46,7 @@ namespace Mine.Views
         /// <param name="e"></param>
         async void Cancel_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync();
+            await Navigation.PopAsync();
         }
 
         protected override bool OnBackButtonPressed()
