@@ -1,6 +1,7 @@
 ﻿using Mine.Models;
 using SQLite;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -53,6 +54,9 @@ namespace Mine.Services
             return Database.DeleteAsync(item);
         }
 
-
+        public Task<List<ItemModel>> IndexAsync()
+        {
+            return Database.Table<ItemModel>().ToListAsync();
+        }
     }
 }
