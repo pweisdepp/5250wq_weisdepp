@@ -16,6 +16,30 @@ namespace Mine.ViewModels
     /// </summary>
     public class ItemIndexViewModel : BaseViewModel
     {
+        
+        private static volatile ItemIndexViewModel instance;
+        private static readonly object syncRoot = new Object();
+
+        public static ItemIndexViewModel Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new ItemIndexViewModel();
+                            //instance.Initialize();
+                        }
+                    }
+                }
+
+                return instance;
+            }
+        }
+
         // The Data set of records
         public ObservableCollection<ItemModel> Dataset { get; set; }
 
