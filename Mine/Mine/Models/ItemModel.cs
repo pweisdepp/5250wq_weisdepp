@@ -5,7 +5,11 @@
     /// </summary>
     public class ItemModel : BaseModel
     {
-        
+        public ItemModel()
+        {
+
+        }
+
         public ItemModel(ItemModel data)
         {
             Update(data);
