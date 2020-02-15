@@ -91,7 +91,7 @@ namespace Mine.ViewModels
         public ItemIndexViewModel()
         {
             Title = "Items";
-
+            SetDataSource(CurrentDataSource);
             Dataset = new ObservableCollection<ItemModel>();
             LoadDatasetCommand = new Command(async () => await ExecuteLoadDataCommand());
 
@@ -236,7 +236,7 @@ namespace Mine.ViewModels
 
                 foreach (var data in dataset)
                 {
-                    Dataset.Add(data);
+                    Dataset.Add(new ItemModel(data));
                 }
             }
             catch (Exception ex)
