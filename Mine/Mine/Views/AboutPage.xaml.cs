@@ -22,7 +22,7 @@ namespace Mine.Views
             CurrentDateTime.Text = System.DateTime.Now.ToString("MM/dd/yy hh:mm:ss");
         }
 
-        aync void DataSource_Toggled(object sender, EventArgs e)
+        async void DataSource_Toggled(object sender, EventArgs e)
         {
             // Flip the settings
             if (DataSourceValue.IsToggled == true)
