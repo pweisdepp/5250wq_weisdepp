@@ -46,7 +46,37 @@ namespace Mine.ViewModels
         /// <summary>
         /// Connection to the Data store
         /// </summary>
-        public IDataStore<ItemModel> DataStore => DependencyService.Get<IDataStore<ItemModel>>();
+        public IDataStore<ItemModel> MockDataStore => new MockDataStore();
+        public IDataStore<ItemModel> SQLDataStore => new DatabaseService();
+
+        public IDataStore<ItemModel> DataStore;
+
+        public int CurrentDataSource = 0;
+
+        /// <summary>
+        /// Sets the DataSource to use (SQL or Mock)
+        /// </summary>
+        /// <param name="isSQL"></param>
+        /// <returns></returns>
+        async public Task<bool> SetDataSource(int isSQL)
+        {
+            if (isSQL == 1)
+            {
+                DataStore = SQLDataStore;
+                CurrentDataSource = 1;
+            }
+            else
+            {
+                DataStore = MockDataStore;
+                CurrentDataSource = 0;
+            }
+
+
+            // Set Flag for Refresh
+            SetNeedsRefresh(true);
+
+            return true;
+        }
 
         // Command to force a Load of data
         public Command LoadDatasetCommand { get; set; }
@@ -82,7 +112,6 @@ namespace Mine.ViewModels
             {
                 await Update(data as ItemModel);
             });
-
         }
 
         /// <summary>
