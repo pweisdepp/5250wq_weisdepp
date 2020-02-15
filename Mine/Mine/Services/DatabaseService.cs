@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mine.Services
 {
-    public class DatabaseService
+    public class DatabaseService : IDataStore<ItemModel>
     {
         static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() =>
         {
@@ -34,9 +34,10 @@ namespace Mine.Services
             }
         }
 
-        public Task<int> CreateAsync(ItemModel item)
+        public Task<bool> CreateAsync(ItemModel item)
         {
-            return Database.InsertAsync(item);
+            Database.InsertAsync(item);
+            return Task.FromResult(true);
         }
 
         public Task<ItemModel> ReadAsync(String id)
@@ -44,17 +45,30 @@ namespace Mine.Services
             return Database.Table<ItemModel>().Where(i => i.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
-        public Task<int> UpdateAsync(ItemModel item)
+        public async Task<bool> UpdateAsync(ItemModel item)
         {
-            return Database.UpdateAsync(item);
+            var data = await ReadAsync(item.Id);
+            if (Database == null)
+            {
+                return false;
+            }
+            var result = await Database.DeleteAsync(item);
+            return (result == 1);
         }
 
-        public Task<int> DeleteAsync(ItemModel item)
+        public async Task<bool> DeleteAsync(string id)
         {
-            return Database.DeleteAsync(item);
+            var item = await ReadAsync(id);
+            if (Database == null)
+            {
+                return false;
+            }
+            var result = await Database.DeleteAsync(id);
+            return (result == 1);
+
         }
 
-        public Task<List<ItemModel>> IndexAsync()
+        public Task<List<ItemModel>> IndexAsync(bool flag = false)
         {
             return Database.Table<ItemModel>().ToListAsync();
         }
