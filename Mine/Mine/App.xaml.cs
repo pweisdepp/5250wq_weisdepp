@@ -18,7 +18,7 @@ namespace Mine
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            //ItemIndexViewModel.Instance.GetCurrentDataSource();
+            var itemInstance = ItemIndexViewModel.Instance;
             // Call the Main Page to open
             MainPage = new MainPage();
         }
