@@ -104,10 +104,9 @@ namespace Mine.Services
         /// <summary>
         /// Clear the Dataset
         /// </summary>
-        public async Task<bool> WipeDataListAsync()
+        public void WipeDataList()
         {
             datalist.Clear();
-            return await Task.FromResult(true);
         }
     }
 }
