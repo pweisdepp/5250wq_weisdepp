@@ -5,6 +5,11 @@
     /// </summary>
     public class ItemModel : BaseModel
     {
+        
+        public ItemModel(ItemModel data)
+        {
+            Update(data);
+        }
         // Add Unique attributes for Item
 
         // The value of the item
