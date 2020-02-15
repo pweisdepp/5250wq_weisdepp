@@ -119,6 +119,7 @@ namespace Mine.ViewModels
                 await SetDataSource(data);
             });
 
+
         }
 
         /// <summary>
@@ -181,6 +182,11 @@ namespace Mine.ViewModels
             return result;
         }
 
+        public void WipeDataList()
+        {
+            DataStore.WipeDataList();
+            SetNeedsRefresh(true);
+        }
 
         #region Refresh
         // Return True if a refresh is needed
