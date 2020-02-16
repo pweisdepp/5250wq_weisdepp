@@ -48,7 +48,7 @@ namespace Mine.Services
         public async Task<bool> UpdateAsync(ItemModel data)
         {
             var item = await ReadAsync(data.Id);
-            if (Database == null)
+            if (item == null)
             {
                 return false;
             }
@@ -59,7 +59,7 @@ namespace Mine.Services
         public async Task<bool> DeleteAsync(string id)
         {
             var item = await ReadAsync(id);
-            if (Database == null)
+            if (item == null)
             {
                 return false;
             }
