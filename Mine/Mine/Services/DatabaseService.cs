@@ -63,7 +63,7 @@ namespace Mine.Services
             {
                 return false;
             }
-            var result = await Database.DeleteAsync(id);
+            var result = await Database.DeleteAsync(item);
             return (result == 1);
 
         }
